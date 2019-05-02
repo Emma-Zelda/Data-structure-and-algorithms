@@ -1,8 +1,8 @@
-# Lesson_2_Python_Refresher.py
 """
+                Lesson_2_Python_Refresher.py
 Description: Examples from Data Structures & Algorithms course on Udacity
     Lesson 2: Python Refresher
-Last Modified on: Apr 30, 2019
+Last Modified on: May 02, 2019
 @author: Emma.Teng
 """
 
