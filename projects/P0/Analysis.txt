@@ -1,0 +1,5 @@
+Task0: O(1)
+Task1: O(n^2)
+Task2: O(n^2)
+Task3: O(n^2) for both Part A and Part B
+Task4: O(n^2) 
