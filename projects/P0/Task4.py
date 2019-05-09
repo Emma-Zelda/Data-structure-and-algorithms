@@ -28,10 +28,9 @@ def numsMakingCalls(calls):
     """
     This functions finds unqiue numbers that make outgoing calls.
     """
-    numsMakingCallsList = []
+    numsMakingCallsList = set()
     for call in calls:
-        if call[0] not in numsMakingCallsList:
-            numsMakingCallsList.append(call[0])
+        numsMakingCallsList.add(call[0])
     return numsMakingCallsList
 
 def numsOtherFuncs(calls, texts):
@@ -39,19 +38,16 @@ def numsOtherFuncs(calls, texts):
     This function finds unique numbers that send texts, receive texts
     or receive incoming calls.
     """
-    numsOtherFuncsList = []
+    numsOtherFuncsList = set()
     
     # numbers that send receive texts
     for text in texts:
-        if text[0] not in numsOtherFuncsList:
-            numsOtherFuncsList.append(text[0])
-        if text[1] not in numsOtherFuncsList:
-            numsOtherFuncsList.append(text[1])
+        numsOtherFuncsList.add(text[0])
+        numsOtherFuncsList.add(text[1])
     
     # numbers that receive incoming calls
     for call in calls:
-        if call[1] not in numsOtherFuncsList:
-            numsOtherFuncsList.append(call[1])
+        numsOtherFuncsList.add(call[1])
     
     return numsOtherFuncsList
 

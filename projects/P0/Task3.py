@@ -45,52 +45,49 @@ The percentage should have 2 decimal digits
 """
 def callsFromBangalore(calls):
     """
-    This functions finds all the records and all the area codes and mobile 
-    prefixes called by people in Bangalore.
+    This functions finds:
+        1. all the records and all the area codes and mobile 
+            prefixes called by people in Bangalore.
+        2. total number of calls made by people in Bangalore.
+        3. the number of calls made by people in Bangalore and received by
+            fixed lines.
     """
-    callsFromBangalore = []
-    codes = ['(080)']
-    for call in calls:
-        if call[0][0:5] == '(080)':
-            callsFromBangalore.append(call)
-            
-        if call[0][0] == '7' or call[0][0] == '8' or call[0][0] == '9':
-            callsFromBangalore.append(call)
-            code = call[0][0:4]
-            if code not in codes:
-                codes.append(code)
-                
-    return callsFromBangalore, codes
-
-def perctOfFixedLines(calls):
-    """
-    This function calculate the percentage of calls from fixed lines in 
-    Bangalore are made to fixed lines also in Bangalore.
-    """
+    codes = set()
     countFixLinesToAll = 0
     countFixLinesToFixLines = 0
     for call in calls:
         if call[0][0:5] == '(080)':
             countFixLinesToAll += 1
-            if call[1][0:5] == '(080)':
+            # Fixed lines
+            if call[1][0] == '(':
+                par_index = call[1].find(')')
+                codes.add(call[1][:par_index + 1])
                 countFixLinesToFixLines += 1
-    return round(countFixLinesToFixLines/countFixLinesToAll*100, 2)
+            # Mobile numbers
+            elif call[1][0] == '7' or call[1][0] == '8' or call[1][0] == '9':
+                codes.add(call[1][0:4])
+            # Telemarketers
+            else:
+                codes.add('140')
+                
+    return codes, countFixLinesToAll, countFixLinesToFixLines
+
 
 def main():
-    callsSelected, codes = callsFromBangalore(calls)
+    codes, countFixLinesToAll, countFixLinesToFixLines = callsFromBangalore(calls)
     # Part A
-    codes.sort()
     print("The numbers called by people in Bangalore have codes:",
-          *codes, sep = '\n')
+          *sorted(codes), sep = '\n')
     # Part B
+    perct = round(countFixLinesToFixLines/countFixLinesToAll*100, 2)
     print('{} percent of calls from fixed lines in Bangalore are calls ' \
           'to other fixed lines in '\
-          'Bangalore.'.format(perctOfFixedLines(callsSelected)))
+          'Bangalore.'.format(perct))
     
 if __name__ == '_main_':
     main()    
     
 main()
 
-# Time complexity of O(n^2)
+# Time complexity of O(nlogn)
 

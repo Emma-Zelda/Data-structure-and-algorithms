@@ -28,7 +28,7 @@ def timeSpentMax(calls):
     timeSpent = {}
     for call in calls:
         date = call[2].replace('-', ' ').split()
-        if date[0] == '09' and date[2] == '2016':
+        if date[1] == '09' and date[2] == '2016':
             # calling telephone number
             if call[0] not in timeSpent:
                 timeSpent[call[0]] = int(call[3])
